@@ -1,0 +1,165 @@
+ /* Apply the gradient background to the entire page */
+ html, body {
+
+  background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+
+}
+
+/* Additional styling for tables and buttons */
+.sensor-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  color: #444;
+  background-color: rgba(255, 255, 255, 0.9); /* Slight transparency to the container */
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 3rem;
+  color: #007BFF;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1.5s ease-in-out 0.5s;
+}
+
+.table-container {
+  margin-bottom: 40px;
+}
+
+.sensor-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  background-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  animation: fadeIn 1.5s ease-in-out 1s;
+}
+
+.sensor-table th,
+.sensor-table td {
+  padding: 15px;
+  text-align: center;
+}
+
+.sensor-table th {
+  background-color: #007BFF;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.sensor-table td {
+  background-color: #fafafa;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #555;
+}
+
+.sensor-table tbody tr:nth-child(even) td {
+  background-color: #f0f0f0;
+}
+
+.sensor-table tbody tr:hover td {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+.sensor-table td {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sensor-table th:first-child,
+.sensor-table td:first-child {
+  border-radius: 12px 0 0 12px;
+}
+
+.sensor-table th:last-child,
+.sensor-table td:last-child {
+  border-radius: 0 12px 12px 0;
+}
+
+.export-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 10px 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.export-button:hover {
+  background-color: #218838;
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.chart-button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 20px 0 0 0;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.chart-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+/* Add styles for navigation buttons in SensorTable.css */
+.nav-button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 20px 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.nav-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.nav-button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
