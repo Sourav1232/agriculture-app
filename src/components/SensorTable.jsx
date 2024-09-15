@@ -63,7 +63,6 @@ const SensorTable = () => {
   
     return () => clearInterval(interval);
   }, [lastProcessedIndex]);
-  
 
   const exportToExcel = () => {
     const excelData = [
@@ -103,15 +102,19 @@ const SensorTable = () => {
   };
 
   const generateChartLabels = () => {
-    const length = moistureData.length;
-    const start = Math.max(0, length - 10 - chartRange * 10); // Show 20 data points
+    const length = sensorDataSet.length;
+    const start = Math.max(0, length - 10 - chartRange * 10); // Show 10 data points
     const end = Math.min(start + 10, length);
-    return moistureData.slice(start, end).map((_, index) => `Point ${start + index + 1}`);
+
+    return sensorDataSet.slice(start, end).map((entry) => {
+      const date = new Date(entry.time);
+      return date.toLocaleTimeString(); // Use actual time for labels
+    });
   };
-  
+
   const chartData = (labels, sensor1Data, sensor2Data, sensor3Data, labelPrefix) => {
     const length = sensor1Data.length;
-    const start = Math.max(0, length - 10 - chartRange * 10); // Show 20 data points
+    const start = Math.max(0, length - 10 - chartRange * 10); // Show 10 data points
     const end = Math.min(start + 10, length);
     const isMultipleSensors = labelPrefix === 'Soil Moisture' || labelPrefix === 'CO2';
 
@@ -278,17 +281,17 @@ const SensorTable = () => {
         <table className="sensor-table">
           <thead>
             <tr>
-              <th>Value</th>
+              <th>Temperature</th>
               <th>Date</th>
               <th>Time</th>
             </tr>
           </thead>
           <tbody>
-            {temperatureData.slice(-10).map((value, rowIndex) => (
-              <tr key={`temperature-row-${rowIndex}`}>
+            {temperatureData.slice(-10).map((value, index) => (
+              <tr key={`temperature-row-${index}`}>
                 <td>{value}</td>
-                <td>{new Date(sensorDataSet[sensorDataSet.length - 10 + rowIndex]?.date).toLocaleDateString()}</td>
-                <td>{new Date(sensorDataSet[sensorDataSet.length - 10 + rowIndex]?.time).toLocaleTimeString()}</td>
+                <td>{new Date(sensorDataSet[sensorDataSet.length - 10 + index]?.date).toLocaleDateString()}</td>
+                <td>{new Date(sensorDataSet[sensorDataSet.length - 10 + index]?.time).toLocaleTimeString()}</td>
               </tr>
             ))}
           </tbody>
@@ -299,13 +302,7 @@ const SensorTable = () => {
         {showChart.temperature && (
           <>
             <Line
-              data={chartData(
-                generateChartLabels(),
-                temperatureData,
-                [],
-                [],
-                'Temperature'
-              )}
+              data={chartData(generateChartLabels(), temperatureData, [], [], 'Temperature')}
             />
             <div className="chart-navigation">
               <button onClick={handlePrevious} className="nav-button" disabled={chartRange >= Math.floor(temperatureData.length / 10)}>
@@ -325,17 +322,17 @@ const SensorTable = () => {
         <table className="sensor-table">
           <thead>
             <tr>
-              <th>Value</th>
+              <th>Humidity</th>
               <th>Date</th>
               <th>Time</th>
             </tr>
           </thead>
           <tbody>
-            {humidityData.slice(-10).map((value, rowIndex) => (
-              <tr key={`humidity-row-${rowIndex}`}>
+            {humidityData.slice(-10).map((value, index) => (
+              <tr key={`humidity-row-${index}`}>
                 <td>{value}</td>
-                <td>{new Date(sensorDataSet[sensorDataSet.length - 10 + rowIndex]?.date).toLocaleDateString()}</td>
-                <td>{new Date(sensorDataSet[sensorDataSet.length - 10 + rowIndex]?.time).toLocaleTimeString()}</td>
+                <td>{new Date(sensorDataSet[sensorDataSet.length - 10 + index]?.date).toLocaleDateString()}</td>
+                <td>{new Date(sensorDataSet[sensorDataSet.length - 10 + index]?.time).toLocaleTimeString()}</td>
               </tr>
             ))}
           </tbody>
@@ -346,13 +343,7 @@ const SensorTable = () => {
         {showChart.humidity && (
           <>
             <Line
-              data={chartData(
-                generateChartLabels(),
-                humidityData,
-                [],
-                [],
-                'Humidity'
-              )}
+              data={chartData(generateChartLabels(), humidityData, [], [], 'Humidity')}
             />
             <div className="chart-navigation">
               <button onClick={handlePrevious} className="nav-button" disabled={chartRange >= Math.floor(humidityData.length / 10)}>
