@@ -103,7 +103,7 @@ const SensorTable = () => {
 
   const generateChartLabels = () => {
     const length = sensorDataSet.length;
-    const start = Math.max(0, length - 10 - chartRange * 10); // Show 10 data points
+    const start = Math.max(0, length - 10 - chartRange * 10); // Show 10 data points based on chartRange
     const end = Math.min(start + 10, length);
 
     return sensorDataSet.slice(start, end).map((entry) => {
@@ -114,27 +114,28 @@ const SensorTable = () => {
 
   const chartData = (labels, sensor1Data, sensor2Data, sensor3Data, labelPrefix) => {
     const length = sensor1Data.length;
-    const start = Math.max(0, length - 10 - chartRange * 10); // Show 10 data points
+    const start = Math.max(0, length - 10 - chartRange * 10); // Same start-end logic for the chart
     const end = Math.min(start + 10, length);
+
     const isMultipleSensors = labelPrefix === 'Soil Moisture' || labelPrefix === 'CO2';
 
     const datasets = isMultipleSensors
       ? [
           {
             label: `${labelPrefix} Sensor 1`,
-            data: sensor1Data.slice(start, end),
+            data: sensor1Data.slice(start, end), // Slice data for sensor 1
             borderColor: 'rgba(255, 99, 132, 1)',
             fill: false,
           },
           {
             label: `${labelPrefix} Sensor 2`,
-            data: sensor2Data.slice(start, end),
+            data: sensor2Data.slice(start, end), // Slice data for sensor 2
             borderColor: 'rgba(54, 162, 235, 1)',
             fill: false,
           },
           {
             label: `${labelPrefix} Sensor 3`,
-            data: sensor3Data.slice(start, end),
+            data: sensor3Data.slice(start, end), // Slice data for sensor 3
             borderColor: 'rgba(75, 192, 192, 1)',
             fill: false,
           },
@@ -142,7 +143,7 @@ const SensorTable = () => {
       : [
           {
             label: `${labelPrefix} Sensor`,
-            data: sensor1Data.slice(start, end),
+            data: sensor1Data.slice(start, end), // Single sensor data slicing
             borderColor: 'rgba(255, 99, 132, 1)',
             fill: false,
           },
@@ -154,17 +155,21 @@ const SensorTable = () => {
     };
   };
 
+
   const handlePrevious = () => {
-    if (chartRange < Math.floor(moistureData.length / 10)) {
+    const maxRange = Math.ceil(sensorDataSet.length / 10) - 1;
+    if (chartRange < maxRange) {
       setChartRange((prev) => prev + 1); // Move to the previous set of data
     }
   };
-
+  
   const handleNext = () => {
     if (chartRange > 0) {
       setChartRange((prev) => prev - 1); // Move to the next (more recent) set of data
     }
   };
+  
+  
 
   return (
     <div className="sensor-container">
